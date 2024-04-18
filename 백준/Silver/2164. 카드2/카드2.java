@@ -5,7 +5,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Queue<Integer> queue = new LinkedList<>();
-        List<Integer> list = new LinkedList<>();
 
         int N = Integer.parseInt(br.readLine());
 
