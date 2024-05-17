@@ -10,10 +10,9 @@ public class Main {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int R = Integer.parseInt(st.nextToken());
             String S = st.nextToken();
-            String[] strArray = S.split("");
             for (int j = 0; j < S.length(); j++) {
                 for (int k = 0; k < R; k++) {
-                    sb.append(strArray[j]);
+                    sb.append(S.charAt(j));
                 }
             }
             sb.append("\n");
