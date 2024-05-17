@@ -4,18 +4,11 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        String str = br.readLine();
-        String[] result = new String[N];
-        for (int i = 0; i < result.length; i++) {
-            result[i] = str.charAt(i)+"";
-        }
+        String[] result = br.readLine().split("");
         int sum = 0;
-        long[] resultByLong = new long[N];
-        for (int i = 0; i < resultByLong.length; i++) {
-            resultByLong[i] = Long.parseLong(result[i]);
-            sum += resultByLong[i];
+        for (int i = 0; i < N; i++) {
+            sum += Long.parseLong(result[i]);
         }
         System.out.println(sum);
     }
 }
-
