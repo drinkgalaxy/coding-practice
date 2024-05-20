@@ -7,12 +7,9 @@ class Solution {
         for (int i = 0; i < nums.length; i++) {
             phoneketmon.add(nums[i]);
         }
-        int answer;
         if (phoneketmon.size() >= nums.length/2) {
-            answer = nums.length/2;
-        } else {
-            answer = phoneketmon.size();
+            return nums.length/2;
         }
-        return answer;
+        return phoneketmon.size();
     }
 }
