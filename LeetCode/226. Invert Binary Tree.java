@@ -23,7 +23,6 @@ class Solution {
             return null;
         }
         TreeNode temp = new TreeNode();
-        root.val = root.val;
         temp = root.left;
         root.left = root.right;
         root.right = temp;
