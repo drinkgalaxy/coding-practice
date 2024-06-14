@@ -12,7 +12,7 @@ class Solution {
         }
 
         // 배열을 순서대로 섞기
-        // 홀수면 num1의 값, 짝수면 num2의 값
+        // 짝수면 num1의 값, 홀수면 num2의 값
         int num1Count = 0;
         int num2Count = 0;
         for (int i = 0; i < nums.length; i++) {
