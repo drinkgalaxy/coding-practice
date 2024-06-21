@@ -4,8 +4,8 @@ class Solution {
     static int target;
     public int solution(int[] numbers, int target) {
         answer = 0;
-        this.numbers = numbers;
-        this.target = target;
+        numbers = numbers;
+        target = target;
         
         dfs(0, 0);
         
