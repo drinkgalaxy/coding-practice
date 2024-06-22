@@ -14,9 +14,6 @@ class Solution {
                 list.add(i);
             }
         }
-        for (Integer i : list) {
-            System.out.print(i+", ");
-        }
         
         int answer = list.size();
         return answer;
