@@ -2,23 +2,24 @@ import java.util.*;
 
 class Solution {
     boolean solution(String s) {
-        boolean answer = false;
-        Stack<Character> stack = new Stack<>();
-        
-        for(int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                stack.push(s.charAt(i));
+        boolean answer = true;
+
+        Deque<String> stack = new ArrayDeque<>();
+        for (String str : s.split("")) {
+            if (str.equals("(")) {
+                stack.push(str);
             } else {
                 if (stack.isEmpty()) {
                     return false;
+                } else {
+                    stack.pop();
                 }
-                stack.pop();
             }
         }
-        
-        if (stack.isEmpty()) {
-            answer = true;
+        if (!stack.isEmpty()) {
+            answer = false;
         }
+
         return answer;
     }
 }
