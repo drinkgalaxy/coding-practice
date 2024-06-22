@@ -1,24 +1,27 @@
 import java.util.*;
-import java.io.*;
 
 public class Solution {
     public int[] solution(int []arr) {
-        Queue<Integer> queue = new LinkedList<>();
+        // 선입선출구조 -> Queue
+        Queue<Integer> queue = new ArrayDeque<>();
         for (int i = 0; i < arr.length; i++) {
             if (i < arr.length-1) {
                 if (arr[i] != arr[i+1]) {
-                queue.add(arr[i]);
-           } 
-         } else {
-                queue.add(arr[i]);
+                    queue.offer(arr[i]);
+                }
+            } else {
+                queue.offer(arr[i]);
             }
         }
-        int time = queue.size();
-        int[] result = new int[time];
-        for (int i = 0; i < time; i++) {
-            result[i] = queue.poll();
+        
+        int size = queue.size();
+        int[] answer = new int[size];
+        int index = 0;
+        while (!queue.isEmpty()) {
+            answer[index] = queue.poll();
+            index++;
         }
-
-        return result;
+        
+        return answer;
     }
 }
