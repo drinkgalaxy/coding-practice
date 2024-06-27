@@ -8,7 +8,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        // 전공평점 = (학점 * 과목평점) / (과목평점의 총합)
+        // 전공평점 = (학점 * 과목평점)의 총합 / (과목평점의 총합)
         List<List<String>> strList = new ArrayList<>();
         List<String> column;
         double result = 0;
@@ -23,12 +23,12 @@ public class Main {
         }
 
         // 데이터 다루기
-        double majorResult = 0; // 한 전공과목의 학점 * 과목평점
+        double majorResult = 0; // 과목평점 * 전공과목의 학점
         double majorAll = 0; // 과목평점의 총합
         for (int i = 0; i < strList.size(); i++) {
             if (!strList.get(i).get(2).equals("P")) {
-                double credit = Double.valueOf(strList.get(i).get(1));
-                double gradePoint = 0;
+                double credit = Double.valueOf(strList.get(i).get(1)); // 내 평점
+                double gradePoint = 0; // 학점
 
                 if (strList.get(i).get(2).equals("A+")) {
                     gradePoint = 4.5;
@@ -56,6 +56,6 @@ public class Main {
             }
         }
         result = majorResult / majorAll;
-        System.out.println(result);
+        System.out.printf("%.6f", result);
     }
 }
