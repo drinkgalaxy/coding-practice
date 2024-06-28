@@ -1,0 +1,16 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // 알고리즘의 수행 횟수, 알고리즘의 수행 횟수 다항식의 최고차항의 차수 출력
+        int n = Integer.parseInt(br.readLine());
+        System.out.println(n);
+        System.out.println(1);
+
+    }
+}
