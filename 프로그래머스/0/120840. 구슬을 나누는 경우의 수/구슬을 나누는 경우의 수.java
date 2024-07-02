@@ -8,7 +8,7 @@ class Solution {
         if (r == n) {
             return 1;
         }
-        r = Math.max(r, n-r);
+ 
         long result = 1;
         for (int i = 0; i < r; i++) {
             result *= (n - i);
