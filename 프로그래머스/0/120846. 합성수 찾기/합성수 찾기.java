@@ -1,9 +1,7 @@
-import java.util.*;
-
 class Solution {
     public int solution(int n) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 1; i <= n; i++) {
+        int result = 0;
+        for (int i = 4; i <= n; i++) {
             int count = 0;
             for (int j = 1; j <= i; j++) {
                 if (i % j == 0) {
@@ -11,11 +9,9 @@ class Solution {
                 }
             }
             if (count >= 3) {
-                list.add(i);
+                result++;
             }
         }
-        
-        int answer = list.size();
-        return answer;
+        return result;
     }
 }
