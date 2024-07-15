@@ -1,35 +1,33 @@
+
 import java.io.*;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine());
+        Deque<String> stack = new ArrayDeque<>();
         StringBuilder sb = new StringBuilder();
 
-        int T = Integer.parseInt(br.readLine());
-
         for (int i = 0; i < T; i++) {
-            String str = br.readLine();
-            Stack<String> stack = new Stack<>();
-            for (String s : str.split("")) {
-                if (s.equals(")")) {
-                    if (!stack.empty()) {
-                        if (stack.peek() != "no") {
-                            stack.pop();
-                        }
-                    } else {
-                        stack.push("no");
-                    }
-                } else if (s.equals("(")){
+            String ps = br.readLine();
+            stack = new ArrayDeque<>();
+            for (String s : ps.split("")) {
+                if (s.equals("(")) {
                     stack.push(s);
+                } else {
+                    if (stack.peek() != null && stack.peek().equals("(")) {
+                        stack.pop();
+                    } else {
+                        stack.push(s);
+                    }
                 }
             }
-            if (stack.empty()) {
-                sb.append("YES");
-                sb.append("\n");
+            
+            if (!stack.isEmpty()) {
+                sb.append("NO").append("\n");
             } else {
-                sb.append("NO");
-                sb.append("\n");
+                sb.append("YES").append("\n");
             }
         }
         System.out.println(sb);
