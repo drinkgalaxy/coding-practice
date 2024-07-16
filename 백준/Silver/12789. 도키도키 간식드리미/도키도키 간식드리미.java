@@ -31,7 +31,8 @@ public class Main {
             }
         }
 
-        if (count == N + 1) {
+        // 모든 학생들이 간식을 받은 경우
+        if (space.isEmpty()) {
             System.out.println("Nice");
         } else {
             System.out.println("Sad");
