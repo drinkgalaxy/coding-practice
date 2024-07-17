@@ -1,11 +1,6 @@
 class Solution {
     public String[] solution(String my_str, int n) {
-        int length = 0;
-        if (my_str.length() % n != 0) {
-            length = my_str.length() / n + 1;
-        } else {
-            length = my_str.length() / n;
-        }
+        int length = (my_str.length() + n - 1) / n;
         
         String[] answer = new String[length];
         for (int i = 0; i < length; i++) {
@@ -13,12 +8,12 @@ class Solution {
         }
         
         int index = 0;
-        for (int i = 0; i < my_str.length(); i++) {
+        for (String s : my_str.split("")) {
             if (answer[index].length() < n) {
-                answer[index] += my_str.charAt(i);
+                answer[index] += s;
             } else {
                 index++;
-                answer[index] += my_str.charAt(i);
+                answer[index] += s;
             }
         }
         
