@@ -1,21 +1,20 @@
-import java.util.*;
-
 class Solution {
     public int solution(String[] spell, String[] dic) {
-        int answer = 2;
-        int index = 0;
+        int answer = 0;
+        int[] check = new int[dic.length];
         
         for (int i = 0; i < dic.length; i++) {
-            index = 0;
+            int count = 0;
             for (int j = 0; j < spell.length; j++) {
                 if (dic[i].contains(spell[j])) {
-                    index++;
+                    count++;
                 }
             }
-            if (index == spell.length) {
-                answer = 1;
+            if (count >= spell.length) {
+                return 1;
             }
-        } 
-        return answer;
+        }
+
+        return 2;
     }
 }
