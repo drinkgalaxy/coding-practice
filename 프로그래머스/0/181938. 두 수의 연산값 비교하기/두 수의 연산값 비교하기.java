@@ -1,11 +1,10 @@
 class Solution {
     public int solution(int a, int b) {
-        int ab = Integer.parseInt(String.valueOf(a)+String.valueOf(b));
+        int answer = 0;
+        String a_ = String.valueOf(a);
+        String b_ = String.valueOf(b);
+
         
-        if (ab >= 2*a*b) {
-            return ab;
-        } else {
-            return 2*a*b;
-        }
+        return Math.max(Integer.valueOf(a_+b_), 2 * a * b);
     }
 }
