@@ -1,16 +1,14 @@
-import java.util.*;
-
 class Solution {
     public String solution(String my_string, int[] indices) {
-
-        Arrays.sort(indices);
-        StringBuilder sb = new StringBuilder(my_string);
+        StringBuilder sb = new StringBuilder();
         
-        for (int i = indices.length - 1; i >= 0; i--) {
-            int index = indices[i];
-            if (index >= 0 && index < sb.length()) {
-                sb.deleteCharAt(index);
-            }
+        String[] my_arr = my_string.split("");
+        for (int i = 0; i < indices.length; i++) {
+            my_arr[indices[i]] = "";
+        }
+        
+        for (String s : my_arr) {
+            sb.append(s);
         }
         
         return sb.toString();
