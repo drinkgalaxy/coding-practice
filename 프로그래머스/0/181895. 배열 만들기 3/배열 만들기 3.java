@@ -9,12 +9,10 @@ class Solution {
         int[] answer = new int[(fe - fs + 1) + (se - ss + 1)];
         int index = 0;
         for (int i = fs; i <= fe; i++) {
-            answer[index] = arr[i];
-            index++;
+            answer[index++] = arr[i];
         }
         for (int i = ss; i <= se; i++) {
-            answer[index] = arr[i];
-            index++;
+            answer[index++] = arr[i];
         }
         
         return answer;
