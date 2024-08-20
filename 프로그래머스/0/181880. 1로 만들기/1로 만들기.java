@@ -3,18 +3,17 @@ class Solution {
         int answer = 0;
         
         for (int i = 0; i < num_list.length; i++) {
-            int count = 0;
             while (num_list[i] != 1) {
                 if (num_list[i] % 2 == 0) {
                     num_list[i] /= 2;
-                    count++;
+                    answer++;
                 } else {
                     num_list[i] = (num_list[i] - 1) / 2;
-                    count++;
+                    answer++;
                 }
             }
-            answer += count;
         }
+        
         return answer;
     }
 }
