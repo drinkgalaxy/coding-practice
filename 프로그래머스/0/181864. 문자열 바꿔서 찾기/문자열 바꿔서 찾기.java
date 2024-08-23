@@ -15,11 +15,10 @@ class Solution {
             newString += s;
         }
         
-        for (int i = 0; i < newString.length(); i++) {
-            if (newString.substring(i).contains(pat)) {
-                return 1;
-            }
+        if (newString.contains(pat)) {
+            return 1;
+        } else {
+            return 0;
         }
-        return 0;
     }
 }
