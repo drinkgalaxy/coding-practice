@@ -1,6 +1,5 @@
 class Solution {
     public int solution(int[] arr1, int[] arr2) {
-        
         return compare(arr1, arr2);
     }
     
@@ -11,21 +10,17 @@ class Solution {
         if (al != bl) {
             return (al < bl) ? -1 : 1;
         } else {
-            int as = 0;
-            int bs = 0;
-            for (int i : a) {
-                as += i;
-            }
-            for (int i : b) {
-                bs += i;
-            }
-            if (as < bs) {
-                return -1;
-            } else if (as > bs) {
-                return 1;
-            } else {
-                return 0;
-            }
+            int as = sumArr(a);
+            int bs = sumArr(b);
+            return (as < bs) ? -1 : (as > bs) ? 1 : 0;
         }
+    }
+    
+    public int sumArr (int[] n) {
+        int s = 0;
+        for (int i : n) {
+            s += i;
+        }
+        return s;
     }
 }
