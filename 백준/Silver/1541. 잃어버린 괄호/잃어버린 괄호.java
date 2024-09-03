@@ -1,30 +1,34 @@
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+
 
 public class Main {
-    static int answer = 0;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String line = br.readLine();
-        String[] minus = line.split("-");
-        for (int i = 0; i < minus.length; i++) {
-            int temp = mySum(minus[i]);
-            if (i == 0) {
-                answer += temp;
+
+        String equation = br.readLine();
+        ArrayList<String> list = new ArrayList<>();
+
+        int result = 0;
+
+        for (String s : equation.split("-")) {
+            if (s.contains("+")) {
+                int sum = 0;
+                for (String str : s.split("[+]")) {
+                    sum += Integer.parseInt(str);
+                }
+                list.add(String.valueOf(sum));
             } else {
-                answer -= temp;
+                list.add(s);
+            }
+
+            result = Integer.parseInt(list.get(0));
+            for (int i = 1; i < list.size(); i++) {
+                result -= Integer.parseInt(list.get(i));
             }
         }
-        System.out.println(answer);
-    }
 
-    public static int mySum(String A) {
-        int sum = 0;
-        String[] plus = (A.split("[+]"));
-        for (int i = 0; i < plus.length; i++) {
-            int temp = Integer.parseInt(plus[i]);
-            sum += temp;
-        }
-        return sum;
+        System.out.println(result);
     }
 }
