@@ -7,9 +7,8 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine()); // 도시의 개수
-        int[] length = new int[N-1]; // 도로의 길이
-        int[] charge = new int[N]; // 주우소의 리터당 가격
-        int value = 0; // 비용
+        long[] length = new long[N-1]; // 도로의 길이
+        long[] charge = new long[N]; // 주우소의 리터당 가격
 
         // 데이터 저장
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
@@ -21,17 +20,16 @@ public class Main {
             charge[i] = Integer.parseInt(st.nextToken());
         }
 
+        long value = 0;
+        long minCost = charge[0]; // 이전 까지의 과정 중 주유 최소 비용
+
         // 도시의 가격 비교
         for (int i = 0; i < charge.length - 1; i++) {
-            // 현재 도시의 가격의 더 싸다
-            if (charge[i] < charge[i+1]) {
-                // 다다음 도시 것 까지 충전
-                value += (charge[i] * (length[i] + length[i+1]));
-                i++;
-            // 현재 도시의 가격이 더 비싸다
-            } else {
-                value += (charge[i] * length[i]);
+            if (charge[i] < minCost) {
+                minCost = charge[i];
             }
+
+            value += (minCost * length[i]);
         }
 
         System.out.println(value);
