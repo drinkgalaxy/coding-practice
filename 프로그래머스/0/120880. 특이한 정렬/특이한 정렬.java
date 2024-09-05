@@ -1,36 +1,35 @@
 import java.util.*;
-
 class Solution {
     public int[] solution(int[] numlist, int n) {
-        int[] saveIndex = new int[numlist.length];
-        ArrayList<Data> list = new ArrayList<>();
-        for (int i = 0; i < numlist.length; i++) {
-            list.add(new Data(Math.abs(numlist[i] - n), numlist[i]));
+        ArrayList<Numbers> list = new ArrayList<>();
+        for (int i : numlist) {
+            list.add(new Numbers(i, Math.abs(n - i)));
         }
+        
         Collections.sort(list);
         
-        for (int i = 0; i < list.size(); i++) {
-            saveIndex[i] = list.get(i).originValue;
+        int[] answer = new int[list.size()];
+        int index = 0; 
+        for (Numbers numbers : list) {
+            answer[index++] = numbers.value;
         }
-        
-        return saveIndex;
+        return answer;
     }
     
-    public class Data implements Comparable<Data> {
+    class Numbers implements Comparable<Numbers> {
         int value;
-        int originValue;
+        int distance;
         
-        public Data(int value, int originValue) {
+        public Numbers(int value, int distance) {
             this.value = value;
-            this.originValue = originValue;
+            this.distance = distance;
         }
         
-        @Override
-        public int compareTo(Data other) {
-        if (this.value == other.value) {
-            return Integer.compare(other.originValue, this.originValue);
-        } else {
-            return Integer.compare(this.value, other.value);
+        public int compareTo(Numbers other) {
+            if (other.distance == this.distance) {
+                return Integer.compare(other.value, this.value);
+            } else {
+                return Integer.compare(this.distance, other.distance);
             }
         }
     }
