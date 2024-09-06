@@ -1,17 +1,16 @@
 class Solution {
     public String solution(String bin1, String bin2) {
-        int result = changeToNumber(bin1) + changeToNumber(bin2);
-        return changeToBinary(result);
+        return IntegerToBinary(binaryToInteger(bin1) + binaryToInteger(bin2));
+        
     }
     
-    public int changeToNumber(String b) {
-        return Integer.parseInt(b, 2);
+    public int binaryToInteger(String s) {
+        return Integer.parseInt(s, 2); 
+        // s 가 "1101" 이라면 13을 반환
     }
     
-    public String changeToBinary(int n) {
-        if (n == 0) {
-            return "0";
-        }
-        return Integer.toString(n, 2);
+    public String IntegerToBinary(int i) {
+        return Integer.toString(i, 2);
+        // i 가 23 이라면 "10111" 을 반환
     }
 }
