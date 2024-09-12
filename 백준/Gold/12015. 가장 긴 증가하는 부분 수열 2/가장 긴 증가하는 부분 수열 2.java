@@ -36,10 +36,10 @@ public class Main {
                 while (lo < hi) {
                     int mid = (lo + hi) / 2;
 
-                    if (LIS[mid] < key) {
-                        lo = mid + 1;
-                    } else {
+                    if (key <= LIS[mid]) {
                         hi = mid;
+                    } else {
+                        lo = mid + 1;
                     }
                 }
                 // lo 가 LIS 에서 대치 될 원소의 위치가 됨.
