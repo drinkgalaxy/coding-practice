@@ -29,9 +29,7 @@ public class Main {
             graph.get(v).add(u);
         }
 
-        // 1번이랑 연결되어 있는 것만 출력
-        // 연결되어 있는 상태인지 어떻게 알지?
-
+        // 1번이랑 연결되어 있는 노드만 탐색
         for (int i = 0; i < graph.get(1).size(); i++) {
             dfs(graph.get(1).get(i));
         }
@@ -40,15 +38,14 @@ public class Main {
     }
 
     private static void dfs(Integer node) {
-        count++;
         visited[node] = true;
+        count++;
+
         for (int i = 0; i < graph.get(node).size(); i++) {
             int nextNode = graph.get(node).get(i);
             if (!visited[nextNode]) {
-                visited[nextNode] = true;
                 dfs(nextNode);
             }
         }
     }
 }
-
