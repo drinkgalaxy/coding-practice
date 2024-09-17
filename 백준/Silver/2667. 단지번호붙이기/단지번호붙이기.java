@@ -26,14 +26,15 @@ public class Main {
             }
         }
 
-        count = 1;
+
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (map[i][j] == '1' && !visited[i][j]) {
+                    count++;
                     dfs(i, j);
 
                     result.add(count);
-                    count = 1; // 저장 후 초기화
+                    count = 0; // 저장 후 초기화
                 }
             }
         }
