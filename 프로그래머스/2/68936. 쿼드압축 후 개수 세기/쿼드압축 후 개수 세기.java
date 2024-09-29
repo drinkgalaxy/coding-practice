@@ -1,29 +1,29 @@
 class Solution {
-    static int[] answer;
+    static int[] answer = new int[2];
     public int[] solution(int[][] arr) {
         
-        answer = new int[2];
         quad(arr, 0, 0, arr.length);
         
         return answer;
     }
     
-    public void quad(int[][] arr, int x, int y, int size) {
+    void quad(int[][] arr, int x, int y, int size) {
         if (IsPossible(arr, x, y, size, arr[x][y])) {
-            if (arr[x][y] == 1) {
-                answer[1]++;
-            } else {
+            // 압축
+            if (arr[x][y] == 0) {
                 answer[0]++;
+            } else {
+                answer[1]++;
             }
             return;
         } 
         quad(arr, x, y, size / 2);
-        quad(arr, x, y + size / 2, size / 2);
         quad(arr, x + size / 2, y, size / 2);
+        quad(arr, x, y + size / 2, size / 2);
         quad(arr, x + size / 2, y + size / 2, size / 2);
     }
     
-    public boolean IsPossible(int[][] arr, int x, int y, int size, int val) {
+    boolean IsPossible(int[][] arr, int x, int y, int size, int val) {
         for (int i = x; i < x + size; i++) {
             for (int j = y; j < y + size; j++) {
                 if (arr[i][j] != val) {
