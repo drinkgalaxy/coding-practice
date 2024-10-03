@@ -8,8 +8,6 @@ import java.util.StringTokenizer;
 public class Main {
     static final int INF = Integer.MAX_VALUE; // 엄청 큰 값 지정
     static ArrayList<ArrayList<Node>> graph;
-    static int[] dist;
-    static boolean[] visited;
     static int n, m;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,7 +18,6 @@ public class Main {
         for (int i = 0; i < T; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine(), " ");
             n = Integer.parseInt(st.nextToken()); // 교차로 개수 (정점 개수)
-            visited = new boolean[n+1];
             m = Integer.parseInt(st.nextToken()); // 도로 개수 (간선 개수)
             int t = Integer.parseInt(st.nextToken()); // 목적지 후보의 개수
 
@@ -72,8 +69,8 @@ public class Main {
     }
 
     public static int dijkstra(int start, int end) {
-        visited = new boolean[n+1];
-        dist = new int[n+1];
+        boolean[] visited = new boolean[n+1];
+        int[] dist = new int[n+1];
         Arrays.fill(dist, INF);
 
         PriorityQueue<Node> queue = new PriorityQueue<>();
