@@ -3,57 +3,60 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
+
 public class Main {
-    static ArrayList<ArrayList<Integer>> graph = new ArrayList<>(); // 그래프 정보 저장
-    static int[] visited; // 방문 배열
-    static int count; // 방문 순서
+    static ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+    static int[] visited;
+    static int count;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        int N = Integer.parseInt(st.nextToken()); // 정점의 수
-        int M = Integer.parseInt(st.nextToken()); // 간선의 수
-        int R = Integer.parseInt(st.nextToken()); // 시작 정점 (1)
 
-        visited = new int[N+1]; // 시작 정점이 1부터 시작함
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int R = Integer.parseInt(st.nextToken());
 
-        // 초기화
-        for (int i = 0; i < N+1; i++) {
-            graph.add(new ArrayList<>());
+        visited = new int[N+1];
+
+        for (int i = 0; i <= N; i++) {
+            list.add(new ArrayList<>());
         }
-        // 그래프 데이터 저장
+
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine(), " ");
-            int s = Integer.parseInt(st.nextToken());
-            int e = Integer.parseInt(st.nextToken());
+            int u = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
 
-            // 무방향이므로 양쪽에 정보를 추가
-            graph.get(s).add(e);
-            graph.get(e).add(s);
+            list.get(u).add(v);
+            list.get(v).add(u);
         }
 
-        // 오름차순 정렬
-        for (int i = 1; i < graph.size(); i++) {
-            Collections.sort(graph.get(i));
+        for (int i = 1; i < list.size(); i++) {
+            Collections.sort(list.get(i));
         }
 
         count = 1;
         dfs(R);
 
+        StringBuilder sb = new StringBuilder();
         for (int i = 1; i < visited.length; i++) {
-            sb.append(visited[i]).append("\n");
+            if (visited[i] != 0) {
+                sb.append(visited[i]).append("\n");
+            } else {
+                sb.append(0).append("\n");
+            }
         }
+
         System.out.println(sb);
     }
 
-    private static void dfs(int n) {
-        visited[n] = count; // 방문 배열 저장
-        for (int i = 0; i < graph.get(n).size(); i++) {
-            int newVertex = graph.get(n).get(i); // 정점 리스트 순회
-            if (visited[newVertex] == 0) { // 방문 하지 않은 배열이면, 
-                count++;
-                dfs(newVertex);
+    public static void dfs(int start) {
+        if (visited[start] == 0) {
+            visited[start] = count++;
+
+            for (int i = 0; i < list.get(start).size(); i++) {
+                int next = list.get(start).get(i);
+                dfs(next);
             }
         }
     }
