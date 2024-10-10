@@ -42,31 +42,30 @@ public class Main {
                         continue;
                     }
 
-                    if (distance[i][j] > distance[i][k] + distance[k][j]) {
+                    // 더 작은 값으로 갱신 
+                    if (distance[i][j] >  distance[i][k] + distance[k][j]) {
                         distance[i][j] = distance[i][k] + distance[k][j];
                     }
                 }
             }
         }
 
+
         // 최소 사이클 길이 찾기 (자기 자신으로 돌아오는 경로 중 가장 짧은 것)
         int minCycle = INF;
         for (int i = 1; i <= V; i++) {
             for (int j = 1; j <= V; j++) {
                 if (i == j) {
-                    continue; // 자기 자신을 제외한 두 정점이
-                } // 서로에게 가는 경로가 있다면, 사이클 존재
+                    continue;
+                }
+
                 if (distance[i][j] != INF && distance[j][i] != INF) {
-                    // 최소 사이클의 도로 길이의 합을 구하기
                     minCycle = Math.min(minCycle, distance[i][j] + distance[j][i]);
                 }
             }
         }
 
-        if (minCycle == INF) {
-            System.out.println(-1);
-        } else {
-            System.out.println(minCycle);
-        }
+        System.out.println((minCycle == INF) ? -1 : minCycle);
+
     }
 }
