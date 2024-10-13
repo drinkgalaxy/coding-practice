@@ -30,15 +30,10 @@ public class Main {
             graph.get(e).add(new Node(s, w));
         }
 
-        DFS(1, 0); // 임의의 노드부터 시작
+        DFS(1, 0); // 루트 노드부터 시작
         Arrays.fill(visited, false);
         max = 0;
-
         DFS(firstNode, 0); // 가장 긴 노드 시작
-        Arrays.fill(visited, false);
-        visited[firstNode] = true;
-
-        DFS(secondNode, 0); // 두번째 긴 노드 시작
 
         System.out.println(max);
     }
