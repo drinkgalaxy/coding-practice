@@ -3,63 +3,58 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-
 public class Main {
-    static int L;
-    static int[][] arr;
-    static boolean[][] visited;
-    // 나이트가 이동할 수 있는 dx, dy 저장
-    static int[] dx = {1, 2, 2, 1, -1, -2, -2, -1};
-    static int[] dy = {2, 1, -1, -2, -2, -1, 1, 2};
-    static int x1, y1, x2, y2;
+    static int[] dx = {-2, -1, 1, 2, 2, 1, -1, -2};
+    static int[] dy = {1, 2, 2, 1, -1, -2, -2, -1};
+    static int[][] dist;
+    static int sx, sy, ex, ey, L;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-        StringTokenizer st;
-        int T = Integer.parseInt(br.readLine()); // 테스트 케이스 개수
+
+        int T = Integer.parseInt(br.readLine()); // 테스트 케이스의 개수
 
         for (int i = 0; i < T; i++) {
             L = Integer.parseInt(br.readLine()); // 체스판의 한 변의 길이
-            arr = new int[L][L];
-            visited = new boolean[L][L];
+            dist = new int[L][L];
 
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            sx = Integer.parseInt(st.nextToken());
+            sy = Integer.parseInt(st.nextToken());
             st = new StringTokenizer(br.readLine(), " ");
-            x1 = Integer.parseInt(st.nextToken());
-            y1 = Integer.parseInt(st.nextToken());
-            st = new StringTokenizer(br.readLine(), " ");
-            x2 = Integer.parseInt(st.nextToken());
-            y2 = Integer.parseInt(st.nextToken());
+            ex = Integer.parseInt(st.nextToken());
+            ey = Integer.parseInt(st.nextToken());
 
-            bfs();
-            sb.append(arr[x2][y2]).append("\n");
+            System.out.println(BFS());
         }
-        System.out.println(sb);
-
     }
 
-    private static void bfs() {
+    private static int BFS() {
         Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{x1, y1});
-        visited[x1][y1] = true;
+        queue.offer(new int[]{sx, sy});
+        dist[sx][sy] = 0; // 시작점은 거리가 0
 
         while (!queue.isEmpty()) {
             int[] now = queue.poll();
             int nx = now[0];
             int ny = now[1];
 
+            // 도착지에 도착했을 경우
+            if (nx == ex && ny == ey) {
+                return dist[ex][ey];
+            }
+
             for (int i = 0; i < 8; i++) {
                 int xx = nx + dx[i];
                 int yy = ny + dy[i];
 
-                if (xx >= 0 && xx < L && yy >= 0 && yy < L) {
-                    if (!visited[xx][yy]) {
-                        arr[xx][yy] = arr[nx][ny] + 1;
-
-                        queue.add(new int[]{xx, yy});
-                        visited[xx][yy] = true;
+                if (xx < L && yy < L && xx >= 0 && yy >= 0) {
+                    if (dist[xx][yy] == 0) {
+                        queue.offer(new int[]{xx, yy});
+                        dist[xx][yy] += dist[nx][ny] + 1;
                     }
                 }
             }
         }
+        return -1;
     }
 }
