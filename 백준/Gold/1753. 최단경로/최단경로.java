@@ -1,90 +1,86 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
-
+import java.util.*;
 
 public class Main {
-    static boolean[] visited; // 방문 처리 배열
-    static ArrayList<Node>[] list; // 그래프 저장
-    static int[] distance; // 최단 경로 값 저장
-    static PriorityQueue<Node> queue = new PriorityQueue<>(); // 우선순위 큐
+    static int[] distance;
+    static boolean[] visited;
+    static ArrayList<ArrayList<Node>> graph = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        PriorityQueue<Node> queue = new PriorityQueue<>();
+        StringBuilder sb = new StringBuilder();
 
-        int V = Integer.parseInt(st.nextToken()); // 정점의 개수
-        int E = Integer.parseInt(st.nextToken()); // 간선의 개수
+        int V = Integer.parseInt(st.nextToken());
+        int E = Integer.parseInt(st.nextToken());
+        distance = new int[V+1];
+        visited = new boolean[V+1];
+
         int K = Integer.parseInt(br.readLine()); // 시작 정점의 번호
 
-        visited = new boolean[V+1];
-        list = new ArrayList[V+1];
-        distance = new int[V+1];
-
-        // 그래프, 최단 경로 값 초기화
-        for (int i = 1; i <= V; i++) {
-            list[i] = new ArrayList<>();
+        // 그래프 값 초기화
+        for (int i = 0; i <= V; i++) {
+            graph.add(new ArrayList<>());
         }
+
+        // 최단 경로 값 초기화
         for (int i = 0; i <= V; i++) {
             distance[i] = Integer.MAX_VALUE;
         }
 
-        // 가중치가 있는 인접리스트 초기화하기.
         for (int i = 0; i < E; i++) {
             st = new StringTokenizer(br.readLine(), " ");
-            int u = Integer.parseInt(st.nextToken()); // 시작 정점
-            int v = Integer.parseInt(st.nextToken()); // 도착 정점
-            int w = Integer.parseInt(st.nextToken()); // 간선의 가중치
+            int u = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            int w = Integer.parseInt(st.nextToken());
 
-            list[u].add(new Node(v, w));
+            graph.get(u).add(new Node(v, w));
         }
 
         // 다익스트라 알고리즘 수행
-        queue.add(new Node(K, 0)); // K를 시작점으로 설정하기
+        queue.offer(new Node(K, 0)); // 시작점은 K
         distance[K] = 0;
 
         while (!queue.isEmpty()) {
-            Node current = queue.poll();
-            int endNode = current.end;
-            if (!visited[endNode]) {
-                visited[endNode] = true;
+            Node n = queue.poll();
+            int current = n.e;
+            if (!visited[current]) {
+                visited[current] = true;
+                for (int i = 0; i < graph.get(current).size(); i++) {
+                    Node tmp = graph.get(current).get(i);
+                    int nextNode = tmp.e;
+                    int nextWeight = tmp.w;
+                    if (distance[nextNode] > distance[current] + nextWeight) {
+                        distance[nextNode] = distance[current] + nextWeight;
 
-                for (int i = 0; i < list[endNode].size(); i++) {
-                    Node tmp = list[endNode].get(i);
-                    int next = tmp.end;
-                    int weight = tmp.weight;
-                    if (distance[next] > distance[endNode] + weight) {
-                        distance[next] = distance[endNode] + weight; // distance[next]를 최소 거리로 업데이트
-
-                        queue.add(new Node(next, distance[next]));
+                        queue.add(new Node(nextNode, distance[nextNode]));
                     }
                 }
             }
         }
 
         for (int i = 1; i <= V; i++) {
-            if (visited[i]) {
-                System.out.println(distance[i]);
+            if (!visited[i]) {
+                sb.append("INF").append("\n");
             } else {
-                System.out.println("INF");
+                sb.append(distance[i]).append("\n");
             }
         }
-
+        System.out.println(sb);
     }
 
-    public static class Node implements Comparable<Node> {
-        int end;
-        int weight;
+    static class Node implements Comparable<Node> {
+        int e;
+        int w;
 
-        public Node(int end, int weight) {
-            this.end = end;
-            this.weight = weight;
+        public Node(int e, int w) {
+            this.e = e;
+            this.w = w;
         }
 
         @Override
-        public int compareTo(Node n) {
-            return Integer.compare(this.weight, n.weight);
+        public int compareTo(Node node) {
+            return this.w - node.w;
         }
     }
 }
