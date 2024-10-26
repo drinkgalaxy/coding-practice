@@ -1,27 +1,26 @@
 import java.util.*;
 class Solution {
     public int[] solution(int n) {
-        int[] dx = {0, 1, -1};
+        int[][] arr = new int[n][n];
+        
+        int[] dx = {0, 1, -1}; // 아래, 오른쪽, 대각선위왼쪽
         int[] dy = {1, 0, -1};
         
-        int[][] arr = new int[n][n];
-        int v = 1;
         int x = 0;
-        int y = 0; 
-        int d = 0;
-        
+        int y = 0;
+        int dir = 0;
+        int num = 1;
         while (true) {
-            arr[y][x] = v++; // 데이터 저장
-            int nx = x + dx[d];
-            int ny = y + dy[d];
+            arr[y][x] = num++;
+            int nx = dx[dir] + x;
+            int ny = dy[dir] + y;
             
-            if (nx == n || ny == n || arr[ny][nx] != 0) { // 방향 전환 할 시기
-                d = (d + 1) % 3;
-                nx = x + dx[d];
-                ny = y + dy[d];
-                
-                if (nx == n || ny == n || arr[ny][nx] != 0) { // 이땐 아예 끝
-                    break; 
+            if (nx == n || ny == n || arr[ny][nx] != 0) {
+                dir = (dir + 1) % 3;
+                nx = dx[dir] + x;
+                ny = dy[dir] + y;
+                if (nx == n || ny == n || arr[ny][nx] != 0) {
+                    break;
                 }
             }
             x = nx;
