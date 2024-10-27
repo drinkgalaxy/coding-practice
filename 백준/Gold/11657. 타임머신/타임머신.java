@@ -1,49 +1,49 @@
 import java.io.*;
-import java.util.Arrays;
-import java.util.StringTokenizer;
-
+import java.util.*;
 
 public class Main {
-    static Edge[] edge;
+    static Edge[] edges;
     static long[] distance;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-
+        StringBuilder sb = new StringBuilder();
+        
         int N = Integer.parseInt(st.nextToken()); // 도시의 개수
         int M = Integer.parseInt(st.nextToken()); // 버스 노선의 개수
 
         distance = new long[N+1];
         Arrays.fill(distance, Integer.MAX_VALUE);
-        edge = new Edge[M+1];
+        edges = new Edge[M+1];
 
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine(), " ");
-            int A = Integer.parseInt(st.nextToken());
-            int B = Integer.parseInt(st.nextToken());
-            int C = Integer.parseInt(st.nextToken());
+            int A = Integer.parseInt(st.nextToken()); // 시작 도시
+            int B = Integer.parseInt(st.nextToken()); // 도착 도시
+            int C = Integer.parseInt(st.nextToken()); // 이동하는데 걸리는 시간
 
-            edge[i] = new Edge(A, B, C);
+            edges[i] = new Edge(A, B, C);
         }
 
         // 벨만-포드 알고리즘 수행
-        distance[1] = 0; // 출발지점
+        distance[1] = 0;
         for (int i = 1; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                Edge e = edge[j];
+                Edge e = edges[j];
                 // 더 작은 최단거리가 있으면 업데이트
                 if (distance[e.start] != Integer.MAX_VALUE &&
-                    distance[e.end] > distance[e.start] + e.weight) {
+                distance[e.end] > distance[e.start] + e.weight) {
                     distance[e.end] = distance[e.start] + e.weight;
                 }
             }
         }
-        // 음수 사이클 확인하기
+
+        // 음수 사이클 확인
         boolean mCycle = false;
         for (int i = 0; i < M; i++) {
-            Edge e = edge[i];
+            Edge e = edges[i];
             if (distance[e.start] != Integer.MAX_VALUE &&
-                    distance[e.end] > distance[e.start] + e.weight) {
+            distance[e.end] > distance[e.start] + e.weight) {
                 mCycle = true;
             }
         }
@@ -51,16 +51,19 @@ public class Main {
         if (!mCycle) {
             for (int i = 2; i <= N; i++) {
                 if (distance[i] == Integer.MAX_VALUE) {
-                    System.out.println(-1);
+                    sb.append(-1).append("\n");
                 } else {
-                    System.out.println(distance[i]);
+                    sb.append(distance[i]).append("\n");
                 }
             }
-        } else { // 음의 사이클이 있을 때
+        } else {
             System.out.println(-1);
         }
+
+        System.out.println(sb);
     }
-    public static class Edge {
+
+    static class Edge {
         int start;
         int end;
         int weight;
