@@ -17,8 +17,8 @@ class Solution {
         
         if (s.substring(s.length() - 1, s.length()).equals(" ")) {
             return answer;
+        } else {
+            return answer.substring(0, answer.length()-1);
         }
-        
-        return answer.substring(0, answer.length()-1);
     }
 }
