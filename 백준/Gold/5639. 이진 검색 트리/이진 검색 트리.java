@@ -1,10 +1,13 @@
 import java.io.*;
+import java.util.*;
 
 public class Main {
+    static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         Node root = new Node(Integer.parseInt(br.readLine()));
+
         String input;
         while (true) {
             input = br.readLine();
@@ -15,16 +18,18 @@ public class Main {
         }
 
         postOrder(root);
+
+        System.out.println(sb);
     }
 
-    private static void postOrder(Node node) {
-        if (node == null) {
+    static void postOrder(Node n) {
+        if (n == null) {
             return;
         }
 
-        postOrder(node.left);
-        postOrder(node.right);
-        System.out.println(node.num);
+        postOrder(n.left);
+        postOrder(n.right);
+        sb.append(n.num).append("\n");
     }
 
     static class Node {
@@ -33,11 +38,6 @@ public class Main {
 
         Node (int num) {
             this.num = num;
-        }
-        Node (int num, Node left, Node right) {
-            this.num = num;
-            this.left = left;
-            this.right = right;
         }
 
         void Insert(int n) {
