@@ -1,24 +1,28 @@
 import java.util.*;
-
 class Solution {
     public String solution(String s) {
-        List<Character> charList = new ArrayList<>();
+        ArrayList<Character> upper = new ArrayList<>();
+        ArrayList<Character> lower = new ArrayList<>();
         
-        // 문자열 s를 리스트에 저장
         for (int i = 0; i < s.length(); i++) {
-            charList.add(s.charAt(i));
+            if (Character.isUpperCase(s.charAt(i))) {
+                upper.add(s.charAt(i));
+            } else {
+                lower.add(s.charAt(i));
+            }
         }
         
-        // 리스트를 정렬 (기본적으로 사전순 정렬됨)
-        Collections.sort(charList, Collections.reverseOrder());
+        Collections.sort(upper, Collections.reverseOrder());
+        Collections.sort(lower, Collections.reverseOrder());
         
-        // 정렬된 문자들을 하나의 문자열로 만듦
         StringBuilder sb = new StringBuilder();
-        for (char ch : charList) {
-            sb.append(ch);
+        for (char c : lower) {
+            sb.append(c);
+        }
+        for (char c : upper) {
+            sb.append(c);
         }
         
-        // 문자열로 변환하여 반환
         return sb.toString();
     }
 }
