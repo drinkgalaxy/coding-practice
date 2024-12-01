@@ -25,9 +25,18 @@ class Result {
     String m = s.substring(3, 5);
     String ss = s.substring(6, 8);
     if (s.substring(s.length()-2, s.length()).equals("PM")) {
-        return Integer.parseInt(h)+12+":"+m+":"+ss;
+        if (!h.equals("12")) {
+            return Integer.parseInt(h)+12+":"+m+":"+ss;
+        } else {
+            return h+":"+m+":"+ss;
+        }
+        
     } else {
-        return h+":"+m+":"+ss;
+        if (h.equals("12")) {
+            return "00:"+m+":"+ss;
+        } else {
+            return h+":"+m+":"+ss;
+        }
     }
     }
 }
