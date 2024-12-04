@@ -1,21 +1,22 @@
 import java.util.*;
-
 class Solution {
     public int[] solution(int[] array, int[][] commands) {
         int[] answer = new int[commands.length];
-        // commands : i부터 j까지 k번째 수
-        for (int i = 0; i < commands.length; i++) {
-            int start = commands[i][0];
-            int end = commands[i][1];
-            int k = commands[i][2];
-            ArrayList<Integer> list = new ArrayList<>();
-            for (int j = start - 1; j < end; j++) {
-                list.add(array[j]);
-                Collections.sort(list);
+        for (int c = 0; c < commands.length; c++) {
+            int i = commands[c][0];
+            int j = commands[c][1];
+            int k = commands[c][2];
+            
+            int[] arr = new int[j-i+1];
+            int idx = 0;
+            for (int a = i-1; a <= j-1; a++) {
+                arr[idx++] = array[a];
             }
-            answer[i] = list.get(k-1);
+            
+            Arrays.sort(arr);
+            
+            answer[c] = arr[k-1];
         }
-
         return answer;
     }
 }
