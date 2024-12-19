@@ -1,52 +1,52 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    static char[][] arr;
-    static int[] answer;
-    static StringBuilder sb = new StringBuilder();
-    static Deque<Character> stack = new ArrayDeque<>();
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int N = Integer.parseInt(br.readLine()); // 영상의 크기
-        arr = new char[N][N];
-        answer = new int[2];
+  static int N;
+  static char[][] image;
+  static StringBuilder sb = new StringBuilder();
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        for (int i = 0; i < N; i++) {
-            String line = br.readLine();
-            for (int j = 0; j < N; j++) {
-                arr[i][j] = line.charAt(j);
-            }
-        }
+    N = Integer.parseInt(br.readLine());
+    image = new char[N][N];
 
-        quad(arr, 0, 0, N);
-
-        System.out.println(sb);
+    for (int i = 0; i < N; i++) {
+      String line = br.readLine();
+      for (int j = 0; j < N; j++) {
+        image[i][j] = line.charAt(j);
+      }
     }
 
-    static void quad(char[][] arr, int x, int y, int size) {
-        if (IsPossible(arr, x, y, size, arr[x][y])) {
-            sb.append(arr[x][y]);
-            return;
-        }
+    quad(image, 0, 0, N);
 
-        sb.append('(');
-        quad(arr, x, y, size / 2);
-        quad(arr, x, y + size / 2, size / 2);
-        quad(arr, x + size / 2, y, size / 2);
-        quad(arr, x + size / 2, y + size / 2, size / 2);
-        sb.append(')');
+    System.out.println(sb);
+  }
+
+  static void quad(char[][] image, int x, int y, int size) {
+    if (IsPossible(image, x, y, size, image[x][y])) {
+      sb.append(image[x][y]);
+      return;
     }
 
-    static boolean IsPossible(char[][] arr, int x, int y, int size, int val) {
-        for (int i = x; i < x + size; i++) {
-            for (int j = y; j < y + size; j++) {
-                if (arr[i][j] != val) {
-                    return false;
-                }
-            }
+    sb.append("(");
+    quad(image, x, y, size / 2);
+    quad(image, x, y + size / 2, size / 2);
+    quad(image, x + size / 2, y, size / 2);
+    quad(image, x + size / 2, y + size / 2, size / 2);
+    sb.append(")");
+  }
+
+  static boolean IsPossible(char[][] image, int x, int y, int size, int val) {
+    for (int i = x; i < x + size; i++) {
+      for (int j = y; j < y + size; j++) {
+        if (image[i][j] != val) {
+          return false;
         }
-        return true;
+      }
     }
+    return true;
+  }
 }
