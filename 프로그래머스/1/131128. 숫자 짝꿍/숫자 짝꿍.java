@@ -1,5 +1,7 @@
 class Solution {
     public String solution(String X, String Y) {
+        StringBuilder sb = new StringBuilder();
+        
         int[] xCount = new int[10];
         int[] yCount = new int[10];
         
@@ -11,8 +13,6 @@ class Solution {
             yCount[c - '0']++;
         }
         
-        StringBuilder sb = new StringBuilder();
-        
         for (int i = 9; i >= 0; i--) {
             int count = Math.min(xCount[i], yCount[i]);
             for (int j = 0; j < count; j++) {
@@ -22,12 +22,10 @@ class Solution {
         
         if (sb.length() == 0) {
             return "-1";
-        }
-        
-        if (sb.toString().startsWith("0")) {
+        } else if (sb.toString().startsWith("0")) {
             return "0";
+        } else {
+            return sb.toString();
         }
-        
-        return sb.toString();
     }
 }
