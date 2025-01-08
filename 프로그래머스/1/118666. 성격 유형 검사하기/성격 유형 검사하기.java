@@ -6,7 +6,6 @@ class Solution {
         
          // 모든 유형의 키를 미리 초기화 
         char[] types = {'R', 'T', 'C', 'F', 'J', 'M', 'A', 'N'};
-        Arrays.sort(types);
         for (char t : types) {
             map.put(t, 0);
         }
