@@ -1,14 +1,18 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 
 public class Main {
-
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     StringTokenizer st = new StringTokenizer(br.readLine());
@@ -22,14 +26,14 @@ public class Main {
       graph.add(new ArrayList<>());
     }
 
-    int[] indegree = new int[N+1]; // 진입 차수 배열
+    int[] indegree = new int[N+1];
     for (int i = 0; i < M; i++) {
       st = new StringTokenizer(br.readLine());
-      int A = Integer.parseInt(st.nextToken());
-      int B = Integer.parseInt(st.nextToken());
+      int a = Integer.parseInt(st.nextToken());
+      int b = Integer.parseInt(st.nextToken());
 
-      graph.get(A).add(B);
-      indegree[B]++; // 진입 차수 배열 데이터 저장
+      graph.get(a).add(b);
+      indegree[b]++;
     }
 
     // 위상 정렬 수행
@@ -40,19 +44,18 @@ public class Main {
       }
     }
 
-    while(!queue.isEmpty()) {
+    while (!queue.isEmpty()) {
       int now = queue.poll();
       sb.append(now).append(" ");
-      for (int j = 0; j < graph.get(now).size(); j++) {
-        int next = graph.get(now).get(j);
+      for (int i = 0; i < graph.get(now).size(); i++) {
+        int next = graph.get(now).get(i);
         indegree[next]--;
         if (indegree[next] == 0) {
           queue.offer(next);
         }
       }
     }
-
     System.out.println(sb);
-
   }
 }
+ 
