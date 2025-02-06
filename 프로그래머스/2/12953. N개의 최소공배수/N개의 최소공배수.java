@@ -1,13 +1,13 @@
 class Solution {
     public int solution(int[] arr) {
-        int temp = LCM(arr[0], arr[1]);
+        int answer = LCM(arr[0], arr[1]);
         for (int i = 2; i < arr.length; i++) {
-            temp = LCM(temp, arr[i]);
+            answer = LCM(answer, arr[i]);
         }
-        return temp;
+        return answer;
     }
     
-    private int GCD(int a, int b) {
+    private static int GCD(int a, int b) {
         if (b == 0) {
             return a;
         } else {
@@ -15,7 +15,7 @@ class Solution {
         }
     }
     
-    private int LCM(int a, int b) {
+    private static int LCM(int a, int b) {
         return (a * b) / GCD(a, b);
     }
 }
