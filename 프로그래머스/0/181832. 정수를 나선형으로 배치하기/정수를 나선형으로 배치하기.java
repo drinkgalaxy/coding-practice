@@ -1,27 +1,26 @@
 class Solution {
     public int[][] solution(int n) {
         int[][] answer = new int[n][n];
-    
-        int[] dx = {1, 0, -1, 0}; // 시계방향 : 우, 하, 좌, 상
+        
+        int[] dx = {1, 0, -1, 0}; // 우하좌상
         int[] dy = {0, 1, 0, -1};
         
         int num = 1;
-        int dir = 0;
         int x = 0;
         int y = 0;
+        int d = 0;
         
         while (num <= n * n) {
-            if (x >= 0 && x < n && y >= 0 && y < n && answer[y][x] == 0) {
+            if (x < n && x >= 0 && y < n && y >= 0 && answer[y][x] == 0) {
                 answer[y][x] = num++;
             } else {
-                x -= dx[dir];
-                y -= dy[dir];
-                dir = (dir + 1) % 4;
+                x -= dx[d];
+                y -= dy[d];
+                d = (d + 1) % 4;
             }
-            x += dx[dir];
-            y += dy[dir];
+            x += dx[d];
+            y += dy[d];
         }
-        
         return answer;
     }
 }
