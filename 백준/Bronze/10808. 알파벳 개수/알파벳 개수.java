@@ -1,33 +1,23 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
 
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-    "l", "n", "m", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+    int[] alphabet = new int[26];
 
     String question = br.readLine();
 
-    Map<String, Integer> map = new HashMap<>();
-    for (String a : alphabet) {
-      map.put(a, 0);
+    for (int i = 0; i < question.length(); i++) {
+      int temp = question.charAt(i) - 'a';
+      alphabet[temp]++;
     }
 
-    for (String q : question.split("")) {
-      map.put(q, map.get(q) + 1);
+    for (int i : alphabet) {
+      System.out.print(i+" ");
     }
-
-    StringBuilder sb = new StringBuilder();
-    for (Integer value : map.values()) {
-      sb.append(value).append(" ");
-    }
-    
-    System.out.println(sb);
   }
 }
