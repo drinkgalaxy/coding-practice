@@ -5,11 +5,11 @@ class Solution {
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             
-            if (c >= 'A' && c <= 'Z') { // 대문자 처리
+            if (c >= 'A' && c <= 'Z') {
                 sb.append((char) ((c - 'A' + n) % 26 + 'A'));
-            } else if (c >= 'a' && c <= 'z') { // 소문자 처리
+            } else if (c >= 'a' && c <= 'z') {
                 sb.append((char) ((c - 'a' + n) % 26 + 'a'));
-            } else { // 공백 처리
+            } else {
                 sb.append(c);
             }
         }
