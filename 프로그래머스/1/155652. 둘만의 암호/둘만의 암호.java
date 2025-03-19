@@ -1,32 +1,30 @@
 import java.util.*;
 class Solution {
     public String solution(String s, String skip, int index) {
-        StringBuilder sb = new StringBuilder();
         
-        Set<Character> skipSet = new HashSet<>();
-        
+        Set<Character> set = new HashSet<>();
         for (char c : skip.toCharArray()) {
-            skipSet.add(c);
+            set.add(c);
         }
         
+        StringBuilder result = new StringBuilder();
         for (char c : s.toCharArray()) {
             int count = 0;
             char current = c;
-            
             while (count < index) {
-                current++; // 다음 문자로 이동
+                current++;
                 
                 if (current > 'z') {
                     current = 'a';
                 }
                 
-                if (!skipSet.contains(current)) {
+                if (!set.contains(current)) {
                     count++;
                 }
             }
-            sb.append(current);
+            result.append(current);
         }
         
-        return sb.toString();
+        return result.toString();
     }
 }
