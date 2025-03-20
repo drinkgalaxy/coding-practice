@@ -1,36 +1,33 @@
 import java.util.*;
 class Solution {
     public int[] solution(String[] keymap, String[] targets) {
-
+        int[] answer = new int[targets.length];
+        
         HashMap<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < keymap.length; i++) {
             for (int j = 0; j < keymap[i].length(); j++) {
                 char c = keymap[i].charAt(j);
                 if (map.containsKey(c)) {
-                    int idx = map.get(c);
-                    map.put(c, Math.min(idx, j+1)); // 더 작은 인덱스를 가진 key를 넣어주기
+                    map.put(c, Math.min(map.get(c), j+1));
                 } else {
                     map.put(c, j+1);
                 }
             }
         }
         
-        int[] answer = new int[targets.length];
         for (int i = 0; i < targets.length; i++) {
-            String target = targets[i];
-            int count = 0;
-            boolean flag = true;
-            for (char c : target.toCharArray()) {
-                if (map.containsKey(c)) {
-                    count += map.get(c);
+            int sum = 0;
+            for (int j = 0; j < targets[i].length(); j++) {
+                if (map.containsKey(targets[i].charAt(j))) {
+                    sum += map.get(targets[i].charAt(j));
                 } else {
-                    flag = false;
+                    sum = -1;
                     break;
                 }
             }
-            answer[i] = flag == false ? -1 : count;
+            answer[i] = sum;
         }
-        
+    
         return answer;
     }
 }
