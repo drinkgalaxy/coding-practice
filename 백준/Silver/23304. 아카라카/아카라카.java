@@ -11,8 +11,6 @@ public class Main {
     String s = br.readLine();
 
     System.out.println(isAkaraka(s) ? YES : NO);
-
-
   }
 
   private static boolean isAkaraka(String s) {
@@ -22,6 +20,7 @@ public class Main {
 
     int mid = s.length() / 2;
     return isAkaraka(s.substring(0, mid)) && isAkaraka(s.substring(s.length() - mid));
+
   }
 
   private static boolean isPalindrome(String s) {
