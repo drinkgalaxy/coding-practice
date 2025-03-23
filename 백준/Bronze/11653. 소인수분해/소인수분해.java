@@ -9,22 +9,16 @@ public class Main {
     int N = Integer.parseInt(br.readLine());
     StringBuilder result = new StringBuilder();
 
-    while (N > 1) {
-      int n = div(N);
-      if (n != 1) {
-        N /= n;
-        result.append(n).append("\n");
+    for (int i = 2; i <= Math.sqrt(N); i++) {
+      while (N % i == 0) {
+        result.append(i).append("\n");
+        N /= i;
       }
+    }
+    if (N != 1) {
+      result.append(N);
     }
     System.out.println(result);
   }
-
-  private static int div(int N) {
-    for (int i = 2; i <= N; i++) {
-      if (N % i == 0) {
-        return i;
-      }
-    }
-    return 1;
-  }
+  
 }
