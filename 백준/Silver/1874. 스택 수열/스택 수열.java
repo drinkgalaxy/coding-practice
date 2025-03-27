@@ -1,36 +1,34 @@
 import java.util.*;
-import java.io.*;
 
 public class Main {
-    static int n;
-    static StringBuilder sb = new StringBuilder();
-    static int temp = 1;
-    static boolean err = false;
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        n = Integer.parseInt(br.readLine()); // 입력받을 수열 크기
-        Stack<Integer> stack = new Stack<>();
-        // 원하는 숫자가 나올 때까지 push
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); // 숫자의 개수
+        int[] sequence = new int[n]; // 만들어야 할 수열
+
         for (int i = 0; i < n; i++) {
-            int n = Integer.parseInt(br.readLine());
-            for (; temp <= n; temp++) {
-                stack.push(temp);
-                sb.append("+\n");
-            }
-            // 해당 숫자가 나왔다면, 그 숫자 pop
-            if (stack.peek() == n) {
-                stack.pop();
-                sb.append("-\n");
-            } else { // 해당 숫자가 나오지 않았다면, err를 true로 변경
-                err = true;
+            sequence[i] = sc.nextInt();
+        }
+
+        Stack<Integer> stack = new Stack<>();
+        StringBuilder result = new StringBuilder();
+        int current = 1; // push할 숫자
+
+        for (int num : sequence) {
+            while (current <= num) { // 목표 숫자까지 push
+                stack.push(current++);
+                result.append("+\n");
             }
 
+            if (stack.peek() == num) { // 목표 숫자 pop
+                stack.pop();
+                result.append("-\n");
+            } else { // pop할 숫자가 스택 top보다 작다면 불가능
+                System.out.println("NO");
+                return;
+            }
         }
-        // 출력하기
-        if (err) {
-            System.out.println("NO");
-        } else {
-            System.out.println(sb);
-        }
+
+        System.out.print(result);
     }
 }
