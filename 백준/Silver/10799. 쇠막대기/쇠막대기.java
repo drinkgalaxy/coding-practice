@@ -1,7 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Main {
   public static void main(String[] args) throws IOException {
@@ -9,7 +10,7 @@ public class Main {
 
     String iron = br.readLine();
 
-    Stack<Character> stack = new Stack<>();
+    Deque<Character> stack = new ArrayDeque<>();
 
     int count = 0;
 
