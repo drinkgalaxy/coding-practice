@@ -19,7 +19,7 @@ public class Main {
         if (queue.isEmpty()) {
           System.out.println(0);
         } else {
-          System.out.println(queue.poll().toString());
+          System.out.println(queue.poll());
         }
       }
     }
