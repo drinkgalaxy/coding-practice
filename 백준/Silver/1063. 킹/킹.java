@@ -7,9 +7,6 @@ public class Main {
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    // 알파벳은 열 (A~H), 숫자는 행 (1~8)
-    char[][] board = new char[8][8];
-
     StringTokenizer st = new StringTokenizer(br.readLine());
     String king = st.nextToken(); // 1
     String rock = st.nextToken(); // 2
