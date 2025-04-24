@@ -1,51 +1,58 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int[][] arr;
-    static int[] result = new int[2];
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  static int[][] paper;
+  static int[] result = new int[2];
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int N = Integer.parseInt(br.readLine()); // 전체 종이의 한 변의 길이
-        arr = new int[N][N];
+    int N = Integer.parseInt(br.readLine());
 
-        for (int i = 0; i < N; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-            for (int j = 0; j < N; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
+    paper = new int[N][N];
 
-        quad(arr, 0, 0, N);
-
-        System.out.println(result[0]);
-        System.out.println(result[1]);
+    for (int i = 0; i < N; i++) {
+      StringTokenizer st = new StringTokenizer(br.readLine());
+      for (int j = 0; j < N; j++) {
+        paper[i][j] = Integer.parseInt(st.nextToken());
+      }
     }
 
-    static void quad(int[][] arr, int x, int y, int size) {
-        if (IsPossible(arr, x, y, size, arr[x][y])) {
-            if (arr[x][y] == 0) {
-                result[0]++;
-            } else {
-                result[1]++;
-            }
-            return;
-        }
-        quad(arr, x, y, size / 2);
-        quad(arr, x, y + size / 2, size / 2);
-        quad(arr, x + size / 2, y, size / 2);
-        quad(arr, x + size / 2, y + size / 2, size / 2);
+    quad(0, 0, N);
+
+    System.out.println(result[0]);
+    System.out.println(result[1]);
+
+  }
+
+  private static void quad(int x, int y, int size) {
+    if (isAllSame(paper[x][y], x, y, size)) {
+      if (paper[x][y] == 0) {
+        result[0]++;
+      } else {
+        result[1]++;
+      }
+      return;
     }
 
-    static boolean IsPossible(int[][] arr, int x, int y, int size, int val) {
-        for (int i = x; i < x+size; i++) {
-            for (int j = y; j < y+size; j++) {
-                if (arr[i][j] != val) {
-                    return false;
-                }
-            }
+    int newSize = size / 2;
+
+    quad(x, y, newSize);
+    quad(x, y + newSize, newSize);
+    quad(x + newSize, y, newSize);
+    quad(x + newSize, y + newSize, newSize);
+  }
+
+  private static boolean isAllSame(int val, int x, int y, int size) {
+    for (int i = x; i < x + size; i++) {
+      for (int j = y; j < y + size; j++) {
+        if (paper[i][j] != val) {
+          return false;
         }
-        return true;
+      }
     }
+    return true;
+  }
 }
