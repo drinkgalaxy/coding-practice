@@ -1,62 +1,56 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    static char[][] arr;
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
+  static char[][] arr;
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        arr = new char[N][N];
+    int N = Integer.parseInt(br.readLine());
 
-        star(0, 0, N, false);
+    arr = new char[N][N];
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                sb.append(arr[i][j]);
-            }
-            sb.append("\n");
-        }
-        System.out.println(sb);
+    star(0, 0, N, false);
+
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < N; i++) {
+      for (int j = 0; j < N; j++) {
+        sb.append(arr[i][j]);
+      }
+      sb.append("\n");
     }
 
-    // blank 가 true 라면 공백칸을 의미한다.
-    static void star(int x, int y, int N, boolean blank) {
+    System.out.println(sb);
+  }
 
-        // 공백칸일 경우
-        if (blank) {
-            for (int i = x; i < x + N; i++) {
-                for (int j = y; j < y + N; j++) {
-                    arr[i][j] = ' ';
-                }
-            }
-            return;
+  private static void star(int x, int y, int size, boolean isBlank) {
+    if (isBlank) {
+      for (int i = x; i < x + size; i++) {
+        for (int j = y; j < y + size; j++) {
+          arr[i][j] = ' ';
         }
-
-        // 더이상 쪼갤 수 없는 블록일 때
-        if (N == 1) {
-            arr[x][y] = '*';
-            return;
-        }
-
-        /*
-        * N = 27일 경우 한 블록의 사이즈는 9
-        * N = 9일 경우 한 블록의 사이즈는 3
-        * N = 3일 경우 한 블록의 사이즈는 1 -> 더이상 쪼갤 수 없음
-        */
-        int size = N / 3;
-        int count = 0;
-        for (int i = x; i < x + N; i += size) {
-            for (int j = y; j < y + N ; j += size) {
-                count++;
-                if (count == 5) { // 공백 칸일 경우
-                    star(i, j, size, true);
-                } else {
-                    star(i, j, size, false);
-                }
-            }
-        }
+      }
+      return;
     }
 
+    if (size == 1) {
+      arr[x][y] = '*';
+      return;
+    }
+
+    int newSize = size / 3;
+    int count = 0;
+    for (int i = x; i < x + size; i += newSize) {
+      for (int j = y; j < y + size; j += newSize) {
+        count++;
+        if (count == 5) {
+          star(i, j, newSize, true);
+        } else {
+          star(i, j, newSize, false);
+        }
+
+      }
+    }
+  }
 }
-     
