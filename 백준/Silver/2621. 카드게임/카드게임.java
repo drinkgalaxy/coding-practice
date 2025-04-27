@@ -56,9 +56,9 @@ public class Main {
     } else if (findSameCount(3) != 0) {
       // 6
       score += findSameCount(3) + 400;
-    } else if (findTowPairs() != null) {
+    } else if (findTwoPairs() != null) {
       // 7
-      int[] pairs = findTowPairs();
+      int[] pairs = findTwoPairs();
       score += pairs[1] * 10 + pairs[0] + 300;
     } else if (findSameCount(2) != 0) {
       // 8
@@ -81,7 +81,7 @@ public class Main {
     return value == Integer.MIN_VALUE ? 0 : value;
   }
 
-  private static int[] findTowPairs() {
+  private static int[] findTwoPairs() {
     int[] pairs = new int[2];
     int idx = 0;
 
