@@ -8,21 +8,21 @@ public class Main {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     int N = Integer.parseInt(br.readLine());
-    long[][] dp = new long[N+1][2]; // 끝자리가 0 또는 1
+    long[][] dp = new long[N+1][2];
 
-    // 1 자리 이친수 : 1
-    dp[1][1] = 1;
+    // 한 자리수 일 때 0으로 끝나는거 0개, 1로 끝나는거 1개
     dp[1][0] = 0;
-    // 2 자리 이친수 : 10
-    // 3 자리 이친수 : 100, 101
-    // 4 자리 이친수 : 1000, 1001, 1010
-    // 5 자리 이친수 : 10000, 10001, 10100, 10101
+    dp[1][1] = 1;
+    // 두 자리수 일 때 0으로 끝나는거 1개, 1로 끝나는거 0개
+
+    // 0 뒤엔 0과 1이 올 수 있다.
+    // 1 뒤엔 0만 올 수 있다.
 
     for (int i = 2; i <= N; i++) {
-      dp[i][0] = dp[i-1][1] + dp[i-1][0]; // 0은 1, 0 뒤에 모두 붙일 수 있음
-      dp[i][1] = dp[i-1][0]; // 1은 0 뒤에만 붙일 수 있음
+      dp[i][0] = dp[i-1][0] + dp[i-1][1];
+      dp[i][1] = dp[i-1][0];
     }
-    System.out.println(dp[N][0] + dp[N][1]);
 
+    System.out.println(dp[N][0] + dp[N][1]);
   }
 }
