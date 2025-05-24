@@ -1,63 +1,67 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static Integer[] LIS_dp;
-    static Integer[] LDS_dp;
-    static int[] arr;
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  static int[] arr;
+  static Integer[] LIS_dp;
+  static Integer[] LDS_dp;
 
-        int N = Integer.parseInt(br.readLine());
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        LIS_dp = new Integer[N];
-        LDS_dp = new Integer[N];
-        arr = new int[N];
+    int n = Integer.parseInt(br.readLine());
+    arr = new int[n];
+    LIS_dp = new Integer[n];
+    LDS_dp = new Integer[n];
 
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        for (int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
-        }
-
-        for (int i = 0; i < N; i++) {
-            LIS(i);
-            LDS(i);
-        }
-
-        int max = -1;
-        for (int i = 0; i < N; i++) {
-            max = Math.max(LIS_dp[i] + LDS_dp[i], max);
-        }
-
-        System.out.println(max - 1);
-
+    StringTokenizer st = new StringTokenizer(br.readLine());
+    for (int i = 0; i < n; i++) {
+      arr[i] = Integer.parseInt(st.nextToken());
     }
 
-    private static int LIS(int n) { // 최장 증가 부분수열
-        if (LIS_dp[n] == null) {
-            LIS_dp[n] = 1;
-
-            // n 이전의 노드들을 탐색
-            for (int i = n-1; i >= 0; i--) {
-                if (arr[i] < arr[n]) {
-                    LIS_dp[n] = Math.max(LIS_dp[n], LIS(i) + 1);
-                }
-            }
-        }
-        return LIS_dp[n];
+    // 0부터 n-1까지 탐색 진행 - LIS
+    for (int i = 0; i < n; i++) {
+      LIS(i);
     }
 
-    private static int LDS(int n) { // 최장 감소 부분수열
-        if (LDS_dp[n] == null) {
-            LDS_dp[n] = 1;
-
-            // n 이후의 노드들을 탐색
-            for (int i = n+1; i < LDS_dp.length; i++) {
-                if (arr[i] < arr[n]) {
-                    LDS_dp[n] = Math.max(LDS_dp[n], LDS(i) + 1);
-                }
-            }
-        }
-        return LDS_dp[n];
+    // 0부터 n-1까지 탐색 진행 - LDS
+    for (int i = 0; i < n; i++) {
+      LDS(i);
     }
+
+    // 최댓값 찾기
+    int max = Integer.MIN_VALUE;
+    for (int i = 0; i < n; i++) {
+      max = Math.max(LIS_dp[i] + LDS_dp[i], max);
+    }
+
+    // 값 출력
+    System.out.println(max - 1);
+  }
+
+  private static int LIS(int n) {
+    if (LIS_dp[n] == null) {
+      LIS_dp[n] = 1;
+      for (int i = 0; i < n; i++) { // n 이전!!
+        if (arr[i] < arr[n]) {
+          LIS_dp[n] = Math.max(LIS_dp[n], LIS(i) + 1);
+        }
+      }
+    }
+    return LIS_dp[n];
+  }
+
+  private static int LDS(int n) {
+    if (LDS_dp[n] == null) {
+      LDS_dp[n] = 1;
+      for (int i = n+1; i < LDS_dp.length; i++) { // n 이후!!
+        if (arr[i] < arr[n]) {
+          LDS_dp[n] = Math.max(LDS_dp[n], LDS(i) + 1);
+        }
+      }
+    }
+    return LDS_dp[n];
+  }
 }
