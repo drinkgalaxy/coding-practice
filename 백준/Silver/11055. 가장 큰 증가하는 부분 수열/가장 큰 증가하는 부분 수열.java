@@ -27,7 +27,7 @@ public class Main {
 
     // 최댓값 찾기
     int max = dp[0];
-    for (int i = 1; i < n; i++) {
+    for (int i = 0; i < n; i++) {
       max = Math.max(max, dp[i]);
     }
 
