@@ -1,37 +1,25 @@
-import java.io.*;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 public class Main {
-    static long[] dp = new long[101];
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  static long[] dp = new long[101];
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int T = Integer.parseInt(br.readLine()); // 테스트 케이스 개수
-        for (int i = 0; i < T; i++) {
-            int N = Integer.parseInt(br.readLine()); // 각 테스트 케이스
-            dp[0] = 0;
-            dp[1] = 1;
-            dp[2] = 1;
-            dp[3] = 1;
+    int T = Integer.parseInt(br.readLine());
 
-            for (int j = 4; j < dp.length; j++) {
-                dp[j] = -1;
-            }
-            System.out.println(Pn(N));
-        }
+    dp[3] = dp[2] = dp[1] = 1;
+    dp[4] = 2;
 
-        // ex) N = 6
-        // P(1) = 1, P(2) = 1, P(3) = 1
-        // P(4) = P(1) + P(2) = 2
-        // P(5) = P(2) + P(3) = 2
-        // P(6) = P(3) + P(4) = 3
-        // P(7) = P(4) + P(5) = 4
-
-        // P(N) = P(N - 3) + P(N - 2) = ?
+    for (int i = 5; i <= 100; i++) {
+      // 삼각형을 이어붙이는 규칙 = 두 삼각형 전의 변의 길이 + 세 삼각형 전의 변의 길이
+      dp[i] = dp[i-1] + dp[i-5];
     }
-    private static long Pn(int n) {
-        if (dp[n] == -1) {
-            dp[n] = Pn(n - 3) + Pn(n - 2);
-        }
-        return dp[n];
+
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < T; i++) {
+      sb.append(dp[Integer.parseInt(br.readLine())]).append("\n");
     }
+    System.out.println(sb);
+  }
 }
