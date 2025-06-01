@@ -22,21 +22,21 @@ public class Main {
       P[i] = Integer.parseInt(st.nextToken());
     }
 
-    // 뒤에서부터 DP 계산
     for (int i = N; i >= 1; i--) {
-      // 상담을 선택할 때 얻는 이익
-      int finishDay = i + T[i]; // 마지막 날 이익
-      int pay = 0;
-      if (finishDay <= N + 1) {
-        pay = P[i] + dp[finishDay];
+      // 그 날을 선택함
+      int select = i + T[i];
+      int pay = 0; // select 와 pay 각각 초기화
+      if (select <= N + 1) {
+        pay = P[i] + dp[select];
       }
 
-      // i 일부터 상담을 건너뒬 때 얻는 이익
-      int skip = dp[i + 1];
+      // 그 날을 선택하지 않음
+      int pass = dp[i+1];
 
-      dp[i] = Math.max(pay, skip);
+      dp[i] = Math.max(pay, pass); // 결론은 둘 중에 더 큰거
     }
 
     System.out.println(dp[1]);
+
   }
 }
