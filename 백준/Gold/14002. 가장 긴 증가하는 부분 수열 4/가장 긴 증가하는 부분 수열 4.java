@@ -12,6 +12,7 @@ public class Main {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     int N = Integer.parseInt(br.readLine());
+
     arr = new int[N];
     dp = new Integer[N];
     pre = new int[N];
@@ -19,10 +20,9 @@ public class Main {
     StringTokenizer st = new StringTokenizer(br.readLine());
     for (int i = 0; i < N; i++) {
       arr[i] = Integer.parseInt(st.nextToken());
-      pre[i] = -1; // 초기화
+      pre[i] = -1;
     }
 
-    // 0부터 n-1까지 탐색 진행
     for (int i = 0; i < N; i++) {
       LIS(i);
     }
@@ -38,7 +38,7 @@ public class Main {
 
     System.out.println(max);
 
-    // 역추적하면서 수열 출력
+    // 역추적
     Stack<Integer> stack = new Stack<>();
     while (maxIndex != -1) {
       stack.push(arr[maxIndex]);
