@@ -8,24 +8,24 @@ public class Main {
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    // 각각의 카드에는 등급을 나타내는 색, 8가지
-    // 카드팩의 종류는 카드 1개부터 ~ 카드 N 개까지 다양함.
-    // 돈을 최대한 많이 써서 카드 N개 구매할거임.
-    // 카드가 i개 포함된 카드팩의 가격은 Pi원
-    // 카드 팩의 가격이 주어졌을 때, N개의 카드를 구매하기 위해 민규가 지불해야 하는 금액의 최댓값
-
-    // 카드가 1개 들어있는 카드팩을 구매하고 카드 i-1개를 구입한다.
-    // 카드가 2개 들어있는 카드팩을 구매하고 카드 i-2개를 구입한다.
-    // 점화식: dp[i] = dp[i-j] + cards[j];
+    // N 번째 순서에는 카드 N개가 포함된 카드팩이 놓여있음
+    // 카드의 개수가 적은 팩이더라도 가격이 비싸면 구매
+    //
 
     int N = Integer.parseInt(br.readLine());
+
     long[] cards = new long[N+1];
+    long[] dp = new long[N+1];
+
+    // 카드 1개를 갖기 위해 카드팩을 선택하면 남은 카드팩은 N-1
+    // 카드 2개를 갖기 위해 카드팩을 선택하면 N-2
+    // 그럼 카드 M개를 갖기 위해 카드팩을 선택하면 N-M
+
     StringTokenizer st = new StringTokenizer(br.readLine());
     for (int i = 1; i <= N; i++) {
       cards[i] = Integer.parseInt(st.nextToken());
     }
 
-    long[] dp = new long[N+1];
     for (int i = 1; i <= N; i++) {
       for (int j = 1; j <= i; j++) {
         dp[i] = Math.max(dp[i], dp[i-j] + cards[j]);
