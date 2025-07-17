@@ -8,11 +8,11 @@ public class Main {
   public static void main(String[] args) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    int T = Integer.parseInt(br.readLine());
-
     StringBuilder sb = new StringBuilder();
+    int T = Integer.parseInt(br.readLine());
     for (int i = 0; i < T; i++) {
       int n = Integer.parseInt(br.readLine());
+
       int[][] stickers = new int[2][n+1];
 
       StringTokenizer st = new StringTokenizer(br.readLine());
@@ -25,9 +25,7 @@ public class Main {
         stickers[1][j] = Integer.parseInt(st.nextToken());
       }
 
-      // 핵심은 j를 고를 때, 고를 수 있는 이전과 이전전의 최댓값을 비교하는 것
-
-      long[][] dp = new long[2][n+1];
+      int[][] dp = new int[2][n+1];
 
       dp[0][1] = stickers[0][1];
       dp[1][1] = stickers[1][1];
