@@ -19,7 +19,6 @@ public class Main {
 
     int[] dp = new int[k+1];
     dp[0] = 1;
-    // dp[k] = 금액 k를 만드는 경우의 수
 
     for (int coin : coins) {
       for (int i = coin; i <= k; i++) {
