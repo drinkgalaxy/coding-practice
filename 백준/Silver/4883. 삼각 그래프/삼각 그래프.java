@@ -17,18 +17,17 @@ public class Main {
     while (true) {
       int N = Integer.parseInt(br.readLine());
 
-      if (N == 0) {
-        break;
-      }
+      if (N == 0) break;
 
       testCase++;
 
       int[][] graph = new int[N][3];
+
       for (int i = 0; i < N; i++) {
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int j = 0; j < 3; j++) {
-          graph[i][j] = Integer.parseInt(st.nextToken());
-        }
+        graph[i][0] = Integer.parseInt(st.nextToken());
+        graph[i][1] = Integer.parseInt(st.nextToken());
+        graph[i][2] = Integer.parseInt(st.nextToken());
       }
 
       int[][] dp = new int[N][3];
@@ -39,20 +38,19 @@ public class Main {
         dp[i][2] = Integer.MAX_VALUE;
       }
 
-      // 0행 (시작점)
-      // dp[0][0]은 도달 불가능
+      // 0행 초기화
       dp[0][1] = graph[0][1];
       dp[0][2] = dp[0][1] + graph[0][2];
 
-      // 1행
+      // 1행 초기화
       dp[1][0] = dp[0][1] + graph[1][0];
-      dp[1][1] = Math.min(dp[1][0], Math.min(dp[0][1], dp[0][2])) + graph[1][1]; // 왼쪽은 아예 도달 불가능
-      dp[1][2] = Math.min(dp[1][1], Math.min(dp[0][1], dp[0][2])) + graph[1][2];
+      dp[1][1] = Math.min(dp[0][1], Math.min(dp[0][2], dp[1][0])) + graph[1][1];
+      dp[1][2] = Math.min(dp[0][1], Math.min(dp[0][2], dp[1][1])) + graph[1][2];
 
       for (int i = 2; i < N; i++) {
         dp[i][0] = Math.min(dp[i-1][0], dp[i-1][1]) + graph[i][0];
-        dp[i][1] = Math.min(dp[i-1][1], Math.min(dp[i-1][0], Math.min(dp[i-1][2], dp[i][0]))) + graph[i][1];
-        dp[i][2] = Math.min(dp[i-1][2], Math.min(dp[i-1][1], dp[i][1])) + graph[i][2];
+        dp[i][1] = Math.min(dp[i-1][0], Math.min(dp[i-1][1], Math.min(dp[i-1][2], dp[i][0]))) + graph[i][1];
+        dp[i][2] = Math.min(dp[i-1][1], Math.min(dp[i-1][2], dp[i][1])) + graph[i][2];
       }
 
       sb.append(testCase).append(". ").append(dp[N-1][1]).append("\n");
