@@ -1,82 +1,76 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-  static int[] dx = {-1, 1, 0, 0}; // 왼쪽, 오른쪽, 앞, 뒤
-  static int[] dy = {0, 0, 1, -1};
-  static int M, N;
-  static int[][] box;
-  static Queue<Node> queue = new LinkedList<>();
-  public static void main(String[] args) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    StringTokenizer st = new StringTokenizer(br.readLine());
+    static int[][] tomato;
+    static int[] dx = {-1, 1, 0, 0};
+    static int[] dy = {0, 0, 1, -1};
+    static int M, N;
+    static Queue<Node> queue = new LinkedList<>();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-    M = Integer.parseInt(st.nextToken()); // col
-    N = Integer.parseInt(st.nextToken()); // row
+        M = Integer.parseInt(st.nextToken()); // col
+        N = Integer.parseInt(st.nextToken()); // row
+        tomato = new int[N][M];
 
-    box = new int[N][M];
-
-    for (int i = 0; i < N; i++) {
-      st = new StringTokenizer(br.readLine(), " ");
-      for (int j = 0; j < M; j++) {
-        box[i][j] = Integer.parseInt(st.nextToken());
-        if (box[i][j] == 1) {
-          queue.offer(new Node(i, j, 0));
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < M; j++) {
+                tomato[i][j] = Integer.parseInt(st.nextToken());
+                if (tomato[i][j] == 1) {
+                    queue.offer(new Node(i, j, 0));
+                }
+            }
         }
-      }
+
+        bfs();
     }
 
-    bfs();
-  }
+    static public void bfs() {
+        int date = 0;
+        while (!queue.isEmpty()) {
+            Node n = queue.poll();
+            date = n.date;
 
-  private static void bfs() {
-    int date = 0;
-    while (!queue.isEmpty()) {
-      Node now = queue.poll();
-      date = now.date;
-      for (int i = 0; i < 4; i++) {
-        int nx = now.x + dx[i];
-        int ny = now.y + dy[i];
-        if (nx < N && ny < M && nx >= 0 && ny >= 0) {
-          if (box[nx][ny] == 0) {
-            box[nx][ny] = 1;
-            queue.offer(new Node(nx, ny, date + 1));
-          }
+            for (int i = 0; i < 4; i++) {
+                int nx = dx[i] + n.x;
+                int ny = dy[i] + n.y;
+                if (nx >= 0 && nx < N && ny >= 0 && ny < M) {
+                    if (tomato[nx][ny] == 0) {
+                        tomato[nx][ny] = 1;
+                        queue.offer(new Node(nx, ny, date + 1));
+                    }
+                }
+            }
         }
-      }
-    }
 
-    if (check()) {
-      System.out.println(date);
-    } else {
-      System.out.println(-1);
-    }
-  }
-
-  private static boolean check() {
-    for (int i = 0; i < N; i++) {
-      for (int j = 0; j < M; j++) {
-        if (box[i][j] == 0) {
-          return false;
+        if (check()) {
+            System.out.println(date);
+        } else {
+            System.out.println(-1);
         }
-      }
     }
-    return true;
-  }
 
-  private static class Node {
-    int x;
-    int y;
-    int date;
-
-    public Node(int x, int y, int date) {
-      this.x = x;
-      this.y = y;
-      this.date = date;
+    static public boolean check() {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (tomato[i][j] == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
-  }
+
+    static public class Node {
+        int x, y, date;
+
+        public Node(int x, int y, int date) {
+            this.x = x;
+            this.y = y;
+            this.date = date;
+        }
+    }
 }
