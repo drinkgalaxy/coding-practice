@@ -9,7 +9,7 @@ public class Main {
   static char[][] miro;
   static int[][] jihunDist;
   static int[][] fireDist;
-  static int jihunCount = -1, fireCount = -1;
+  static int jihunCount = -1;
   static Queue<Node> jihunQueue = new LinkedList<>();
   static Queue<Node> fireQueue = new LinkedList<>();
   static int R, C;
@@ -43,7 +43,7 @@ public class Main {
         }
       }
     }
-    
+
     getFireCount(); // 불의 확산시간 부터 체크해야 함
     getJihunCount();
 
@@ -87,8 +87,6 @@ public class Main {
   private static void getFireCount() {
     while (!fireQueue.isEmpty()) {
       Node node = fireQueue.poll();
-
-      fireCount = fireDist[node.x][node.y];
 
       for (int i = 0; i < 4; i++) {
         int nx = node.x + dx[i];
