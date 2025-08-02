@@ -1,65 +1,86 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class Main {
-    static char[][] map;
-    static boolean[][] visited;
-    static int[] dx = {0, 0, -1, 1};
-    static int[] dy = {-1, 1, 0, 0}; // 아래, 위, 왼쪽, 오른쪽
-    static int N, count;
-    static ArrayList<Integer> result;
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  static int[] dx = {0, 0, -1, 1};
+  static int[] dy = {1, -1, 0, 0};
+  static int N;
+  static char[][] house;
+  static boolean[][] visited;
+  static List<Integer> list = new ArrayList<>();
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        N = Integer.parseInt(br.readLine()); // 지도의 크기
-        map = new char[N][N];
-        visited = new boolean[N][N];
-        result = new ArrayList<>();
+    N = Integer.parseInt(br.readLine());
+    house = new char[N][N];
+    visited = new boolean[N][N];
 
-        // 데이터 저장
-        for (int i = 0; i < N; i++) {
-            String line = br.readLine();
-            for (int j = 0; j < N; j++) {
-                map[i][j] = line.charAt(j);
-            }
-        }
+    int result = 0;
 
-
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (map[i][j] == '1' && !visited[i][j]) {
-                    count++;
-                    dfs(i, j);
-
-                    result.add(count);
-                    count = 0; // 저장 후 초기화
-                }
-            }
-        }
-
-        Collections.sort(result);
-
-        System.out.println(result.size());
-        for (Integer i : result) {
-            System.out.println(i);
-        }
+    for (int i = 0; i < N; i++) {
+      String line = br.readLine();
+      for (int j = 0; j < N; j++) {
+        house[i][j] = line.charAt(j);
+      }
     }
 
-    private static void dfs(int x, int y) {
-
-        visited[x][y] = true;
-
-        // 상하좌우 탐색
-        for (int i = 0; i < 4; i++) {
-            int nx = dx[i] + x;
-            int ny = dy[i] + y;
-
-            if (nx >= 0 && ny >= 0 && nx < N && ny < N && !visited[nx][ny] && map[nx][ny] == '1') {
-                count++;
-                dfs(nx, ny);
-            }
+    for (int i = 0; i < N; i++) {
+      for (int j = 0; j < N; j++) {
+        if (house[i][j] == '1' && !visited[i][j]) {
+          Bfs(i, j);
+          result++;
         }
+      }
     }
+
+    StringBuilder sb = new StringBuilder();
+    sb.append(result).append("\n");
+
+    Collections.sort(list);
+    for (Integer i : list) {
+      sb.append(i).append("\n");
+    }
+
+    System.out.println(sb);
+
+  }
+
+  private static void Bfs(int x, int y) {
+    Queue<Node> queue = new LinkedList<>();
+    queue.add(new Node(x, y));
+    visited[x][y] = true;
+
+    int count = 1;
+
+    while (!queue.isEmpty()) {
+      Node node = queue.poll();
+      for (int i = 0; i < 4; i++) {
+        int nx = dx[i] + node.x;
+        int ny = dy[i] + node.y;
+        if (nx < N && ny < N && nx >= 0 && ny >= 0) {
+          if (house[nx][ny] == '1' && !visited[nx][ny]) {
+            queue.add(new Node(nx, ny));
+            visited[nx][ny] = true;
+            count++;
+          }
+        }
+      }
+    }
+
+    list.add(count);
+  }
+
+  private static class Node {
+    int x, y;
+    public Node(int x, int y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
 }
