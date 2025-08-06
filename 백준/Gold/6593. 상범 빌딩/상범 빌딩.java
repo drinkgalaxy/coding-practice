@@ -10,7 +10,7 @@ public class Main {
   static int[] dx = {0, 0, -1, 1, 0, 0};
   static int[] dy = {1, -1, 0, 0, 0, 0};
   static int[] dh = {0, 0, 0, 0, 1, -1};
-  static int result = Integer.MAX_VALUE;
+  static int result;
   static char[][][] building;
   static int[][][] time;
   static Queue<Node> queue;
