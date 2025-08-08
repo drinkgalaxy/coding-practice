@@ -1,56 +1,58 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int[] students;    // students[i]: i번째 학생이 선택한 학생 번호
-    static boolean[] visited; // 방문 여부
-    static boolean[] finished; // 탐색 완료 여부 (사이클 판별용)
-    static int count;         // 사이클에 포함된 학생 수
+  static int[] students;
+  static boolean[] visited;
+  static boolean[] finished;
+  static int count;
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.parseInt(br.readLine());
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder();
+    int T = Integer.parseInt(br.readLine());
 
-        while (T-- > 0) {
-            int n = Integer.parseInt(br.readLine());
-            students = new int[n + 1];
-            visited = new boolean[n + 1];
-            finished = new boolean[n + 1];
-            count = 0;
+    for (int i = 0; i < T; i++) {
+      int n = Integer.parseInt(br.readLine());
+      students = new int[n+1];
+      visited = new boolean[n+1];
+      finished = new boolean[n+1];
+      count = 0;
+      StringTokenizer st = new StringTokenizer(br.readLine());
+      for (int j = 1; j <= n; j++) {
+        students[j] = Integer.parseInt(st.nextToken());
+      }
 
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int i = 1; i <= n; i++) {
-                students[i] = Integer.parseInt(st.nextToken());
-            }
-
-            for (int i = 1; i <= n; i++) {
-                if (!visited[i]) {
-                    dfs(i);
-                }
-            }
-
-            sb.append(n - count).append('\n');
+      for (int j = 1; j <= n; j++) {
+        if (!visited[j]) {
+          dfs(j);
         }
+      }
 
-        System.out.print(sb.toString());
+      sb.append(n - count).append("\n");
+    }
+    System.out.println(sb);
+  }
+
+  static void dfs(int node) {
+    visited[node] = true;
+    int nextNode = students[node]; // 다음 탐색은 node 학생이 선택한 학생
+
+    if (!visited[nextNode]) { // 한 번도 방문 안 했으면
+      dfs(nextNode);
+    } else if (!finished[nextNode]) { // 방문은 했는데 안 끝난 상태면
+      while (nextNode != node) {
+        count++;
+        nextNode = students[nextNode]; // node 랑 일치할 때 까지 count++;
+      }
+      count++; // nextNode 포함
     }
 
-    static void dfs(int cur) {
-        visited[cur] = true;
-        int next = students[cur];
-
-        if (!visited[next]) {
-            dfs(next);
-        } else if (!finished[next]) {
-            // 사이클 발견, 사이클에 포함된 노드 수 세기
-            for (int i = next; i != cur; i = students[i]) {
-                count++;
-            }
-            count++; // cur 포함
-        }
-
-        finished[cur] = true;
-    }
+    finished[node] = true;
+  }
 }
