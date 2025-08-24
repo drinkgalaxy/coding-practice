@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.DoubleBuffer;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -17,44 +16,45 @@ public class Main {
 
     for (int i = 0; i < T; i++) {
       StringTokenizer st = new StringTokenizer(br.readLine());
-      int N = Integer.parseInt(st.nextToken());
-      int M = Integer.parseInt(st.nextToken());
+      int N = Integer.parseInt(st.nextToken()); // 문서의 개수
+      int M = Integer.parseInt(st.nextToken()); // 찾는 문서의 위치
 
       Queue<Document> queue = new LinkedList<>();
       PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
 
       st = new StringTokenizer(br.readLine());
       for (int j = 0; j < N; j++) {
-        int important = Integer.parseInt(st.nextToken());
-        queue.add(new Document(j, important)); // 문서번호, 중요도
-        pq.add(important); // 중요도만 따로 관리
+        int important = Integer.parseInt(st.nextToken()); // 중요도
+        queue.add(new Document(j, important));
+        pq.add(important);
       }
 
-      int index = 0;
+      int count = 1;
       while (!queue.isEmpty()) {
         Document poll = queue.poll();
 
-        if (poll.important == pq.peek()) { // 현재 문서가 가장 높은 중요도를 가졌다면 출력
+        if (poll.important == pq.peek()) {
           pq.poll();
-          index++;
-          if (poll.sequence == M) { // 찾는 순서라면
-              sb.append(index).append("\n");
+          if (poll.num == M) {
+            sb.append(count).append("\n");
             break;
           }
-        } else { // 재배치
-          queue.add(poll);
+          count++;
+        } else {
+          queue.add(new Document(poll.num, poll.important));
         }
       }
     }
+
     System.out.println(sb);
   }
 
   private static class Document {
-    int sequence;
+    int num;
     int important;
 
-    public Document(int sequence, int important) {
-      this.sequence = sequence;
+    public Document(int num, int important) {
+      this.num = num;
       this.important = important;
     }
   }
