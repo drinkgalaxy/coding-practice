@@ -12,13 +12,13 @@ public class Main {
     int N = Integer.parseInt(br.readLine());
 
     int result = 0;
-    int plus = 1; // 자릿수에 더하는 값
-    int num = 10;
+    int plus = 1;
+    int digit = 10;
 
     for (int i = 1; i <= N; i++) {
-      if (i % num == 0) {
+      if (i % digit == 0) {
         plus++;
-        num *= 10;
+        digit *= 10;
       }
       result += plus;
     }
