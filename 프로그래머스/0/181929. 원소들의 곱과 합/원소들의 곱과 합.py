@@ -1,6 +1,4 @@
 def solution(num_list):
-    answer = 0
-    
     multi = 1
     square = 0
     for i in num_list:
