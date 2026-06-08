@@ -4,8 +4,10 @@ public class Solution {
     public int solution(int n) {
         int answer = 0;
 
-        for (String s : String.valueOf(n).split("")) {
-            answer += Integer.parseInt(s);
+        String s = String.valueOf(n);
+        
+        for (String ss : s.split("")) {
+            answer += Integer.parseInt(ss);
         }
 
         return answer;
