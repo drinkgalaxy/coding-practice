@@ -2,17 +2,12 @@ import java.util.*;
 class Solution {
     public int[] solution(long n) {
         
-        Stack<Integer> stack = new Stack<>();
+        String s = String.valueOf(n);
         
-        String sn = String.valueOf(n);
-        for (String s : sn.split("")) {
-            stack.push(Integer.parseInt(s));
-        }
+        int[] answer = new int[s.length()];
         
-        int[] answer = new int[stack.size()];
-        int index = 0;
-        while (!stack.isEmpty()) {
-            answer[index++] = stack.pop();
+        for (int i = 0; i < s.length(); i++) {
+            answer[i] = s.charAt(s.length() - 1 - i) - '0';
         }
         
         return answer;
