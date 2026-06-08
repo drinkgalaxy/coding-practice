@@ -1,17 +1,17 @@
 import java.util.*;
 class Solution {
     public long solution(long n) {
-        long answer = 0;
-    
-        String[] arr = String.valueOf(n).split("");
-        // 배열을 내림차순으로 정렬
-        Arrays.sort(arr, (a, b) -> b.compareTo(a));
+        
+        String str = String.valueOf(n);
+        
+        char[] arr = str.toCharArray();
+        Arrays.sort(arr);
         
         StringBuilder sb = new StringBuilder();
-        for (String s : arr) {
-            sb.append(s);
+        for (char c : arr) {
+            sb.append(c);
         }
         
-        return Long.valueOf(sb.toString());
+        return Long.parseLong(sb.reverse().toString());
     }
 }
