@@ -1,11 +1,20 @@
 class Solution {
     public boolean solution(int x) {
-        int total = 0;
-        String.valueOf(x);
-        for (String s : String.valueOf(x).split("")) {
-            total += Integer.valueOf(s);
+        
+        return isH(x) ? true : false;
+    }
+    
+    boolean isH(int x) {
+        
+        String snum = String.valueOf(x); 
+        
+        int sum = 0;
+        for (String xx : snum.split("")) {
+            sum += Integer.parseInt(xx);
         }
         
-        return (x % total) == 0 ? true : false;
+        return x % sum == 0 ? true : false;
+        
+        
     }
 }
