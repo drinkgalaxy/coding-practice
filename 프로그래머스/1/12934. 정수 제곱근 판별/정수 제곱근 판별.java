@@ -2,11 +2,12 @@ import java.util.*;
 class Solution {
     public long solution(long n) {
         
-        for (long i = 1; i <= (long) Math.sqrt(n); i++) {
-            if ((long) Math.pow(i, 2) == n) {
-                return (long) Math.pow(i+1, 2);
-            }
+        long x = (long) Math.sqrt(n);
+        
+        if ((long) Math.pow(x, 2) == n) {
+            return (long) Math.pow(x+1, 2);
+        } else {
+            return -1;
         }
-        return -1;
     }
 }
